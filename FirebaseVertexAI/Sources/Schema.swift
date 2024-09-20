@@ -42,6 +42,27 @@ public class Schema {
 
   /// Required properties of type ``DataType/object``.
   let requiredProperties: [String]?
+  
+  /// Minimum value for numeric types.
+  let minimum: Double?
+  
+  /// Maximum value for numeric types.
+  let maximum: Double?
+  
+  /// Minimum length for string types.
+  let minLength: Int?
+  
+  /// Maximum length for string types.
+  let maxLength: Int?
+  
+  /// Regular expression pattern for string types.
+  let pattern: String?
+  
+  /// Minimum number of elements for array types.
+  let minItems: Int?
+  
+  /// Maximum number of elements for array types.
+  let maxItems: Int?
 
   /// Constructs a new `Schema`.
   ///
@@ -59,11 +80,22 @@ public class Schema {
   ///   - items: Schema of the elements of type ``DataType/array``.
   ///   - properties: Properties of type ``DataType/object``.
   ///   - requiredProperties: Required properties of type ``DataType/object``.
+  ///   - minimum: Minimum value for numeric types.
+  ///   - maximum: Maximum value for numeric types.
+  ///   - minLength: Minimum length for string types.
+  ///   - maxLength: Maximum length for string types.
+  ///   - pattern: Regular expression pattern for string types.
+  ///   - minItems: Minimum number of elements for array types.
+  ///   - maxItems: Maximum number of elements for array types.
   public init(type: DataType, format: String? = nil, description: String? = nil,
               nullable: Bool? = nil,
               enumValues: [String]? = nil, items: Schema? = nil,
               properties: [String: Schema]? = nil,
-              requiredProperties: [String]? = nil) {
+              requiredProperties: [String]? = nil,
+              minimum: Double? = nil, maximum: Double? = nil,
+              minLength: Int? = nil, maxLength: Int? = nil,
+              pattern: String? = nil,
+              minItems: Int? = nil, maxItems: Int? = nil) {
     self.type = type
     self.format = format
     self.description = description
@@ -72,6 +104,13 @@ public class Schema {
     self.items = items
     self.properties = properties
     self.requiredProperties = requiredProperties
+    self.minimum = minimum
+    self.maximum = maximum
+    self.minLength = minLength
+    self.maxLength = maxLength
+    self.pattern = pattern
+    self.minItems = minItems
+    self.maxItems = maxItems
   }
 }
 
@@ -110,6 +149,13 @@ extension Schema: Encodable {
     case items
     case properties
     case requiredProperties = "required"
+    case minimum
+    case maximum
+    case minLength
+    case maxLength
+    case pattern
+    case minItems
+    case maxItems
   }
 }
 
